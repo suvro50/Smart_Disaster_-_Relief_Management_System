@@ -1,0 +1,38 @@
+{
+  "name": "smart-disaster-relief-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Smart Disaster & Relief Management System",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js server.js",
+    "start": "node server.js",
+    "migrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate",
+    "migrate:undo": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate:undo",
+    "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all",
+    "seed:undo": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:undo:all"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.3",
+    "nodemailer": "^6.9.15",
+    "pdfkit": "^0.15.1",
+    "sequelize": "^6.37.3",
+    "socket.io": "^4.8.0",
+    "twilio": "^5.3.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "sequelize-cli": "^6.6.2"
+  }
+}

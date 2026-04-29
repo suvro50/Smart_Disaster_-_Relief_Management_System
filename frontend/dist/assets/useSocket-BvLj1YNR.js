@@ -1,0 +1,1 @@
+import{r as o}from"./vendor-DfSVoWR-.js";import{S as e}from"./index-ZqgCjFlt.js";const c=()=>{const t=o.useContext(e);if(!t)throw new Error("useSocket must be used within SocketProvider");return t};export{c as u};

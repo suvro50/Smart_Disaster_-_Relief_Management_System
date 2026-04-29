@@ -1,0 +1,1 @@
+import{o as e}from"./vendor-DfSVoWR-.js";function n(){return e.jsxs("main",{className:"page",children:[e.jsx("h1",{children:"Smart Disaster & Relief Management System"}),e.jsx("p",{children:"Real-time disaster monitoring, response coordination, and public safety platform."})]})}export{n as default};

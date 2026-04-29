@@ -1,0 +1,1 @@
+import{o as e}from"./vendor-DfSVoWR-.js";function s(){return e.jsxs("main",{className:"page",children:[e.jsx("h2",{children:"Create Account"}),e.jsx("p",{children:"Registration page for public users and volunteers."})]})}export{s as default};

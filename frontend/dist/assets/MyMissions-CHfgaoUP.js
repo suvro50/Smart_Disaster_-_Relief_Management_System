@@ -1,0 +1,1 @@
+import{o as s}from"./vendor-DfSVoWR-.js";function n(){return s.jsxs("main",{className:"page",children:[s.jsx("h2",{children:"My Missions"}),s.jsx("p",{children:"Assigned incident tasks and updates."})]})}export{n as default};

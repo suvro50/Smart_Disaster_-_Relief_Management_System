@@ -1,0 +1,1 @@
+import{o as e}from"./vendor-DfSVoWR-.js";function s(){return e.jsxs("main",{className:"page",children:[e.jsx("h2",{children:"User Manager"}),e.jsx("p",{children:"Manage user accounts and role access."})]})}export{s as default};

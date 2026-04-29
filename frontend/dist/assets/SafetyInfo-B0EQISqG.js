@@ -1,0 +1,1 @@
+import{o as s}from"./vendor-DfSVoWR-.js";function a(){return s.jsxs("main",{className:"page",children:[s.jsx("h2",{children:"Safety Information"}),s.jsx("p",{children:"Guidelines and survival steps during active disasters."})]})}export{a as default};

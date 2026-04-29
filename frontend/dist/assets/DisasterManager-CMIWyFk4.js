@@ -1,0 +1,1 @@
+import{o as r}from"./vendor-DfSVoWR-.js";import{D as s}from"./DisasterMap-Bn8NCkjz.js";import"./disasterService-BKcwFk_n.js";import"./api-BiaViGls.js";import"./map-vendor-BzCkopFu.js";function m(){return r.jsxs("main",{className:"page",children:[r.jsx("h2",{children:"Disaster Manager"}),r.jsx(s,{})]})}export{m as default};

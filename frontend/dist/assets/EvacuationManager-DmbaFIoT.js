@@ -1,0 +1,1 @@
+import{o as a}from"./vendor-DfSVoWR-.js";function n(){return a.jsxs("main",{className:"page",children:[a.jsx("h2",{children:"Evacuation Manager"}),a.jsx("p",{children:"Design zone boundaries and safe routes."})]})}export{n as default};

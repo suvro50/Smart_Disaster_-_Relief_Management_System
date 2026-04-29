@@ -1,0 +1,1 @@
+import{o as e}from"./vendor-DfSVoWR-.js";import{A as s}from"./AidRequestForm-B_htXgao.js";import"./Button-CmEGzbQk.js";function i(){return e.jsxs("main",{className:"page",children:[e.jsx("h2",{children:"Request Help"}),e.jsx(s,{})]})}export{i as default};

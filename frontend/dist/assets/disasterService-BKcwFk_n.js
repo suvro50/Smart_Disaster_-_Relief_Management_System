@@ -1,0 +1,1 @@
+import{a}from"./api-BiaViGls.js";const r={getAll:async(s={})=>(await a.get("/disasters",{params:s})).data.data,predictRisk:async s=>(await a.post("/disasters/risk-score",s)).data.data};export{r as d};

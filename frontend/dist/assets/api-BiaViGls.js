@@ -1,0 +1,1 @@
+import{av as a}from"./vendor-DfSVoWR-.js";const o=a.create({baseURL:"http://localhost:5000/api/v1"});o.interceptors.request.use(e=>{const t=localStorage.getItem("token");return t&&(e.headers.Authorization=`Bearer ${t}`),e});export{o as a};
