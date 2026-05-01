@@ -21,7 +21,9 @@ export default function Login() {
       login(data.token);
       navigate("/admin/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      console.error("Login error:", err);
+      const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Login failed";
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

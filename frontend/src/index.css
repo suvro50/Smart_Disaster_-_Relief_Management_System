@@ -92,7 +92,8 @@ body {
 }
 
 .map-box {
-  min-height: 320px;
+  min-height: 500px;
+  height: 500px;
   border: 1px dashed rgba(255, 255, 255, 0.35);
   border-radius: 10px;
   overflow: hidden;
@@ -100,7 +101,7 @@ body {
 }
 
 .leaflet-map {
-  height: 320px;
+  height: 500px;
   width: 100%;
 }
 

@@ -46,7 +46,9 @@ export default function Register() {
         navigate("/login");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Try again.");
+      console.error("Registration error:", err);
+      const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Registration failed. Try again.";
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

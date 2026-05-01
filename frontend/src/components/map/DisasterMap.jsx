@@ -16,10 +16,13 @@ export default function DisasterMap() {
   const [showHeatmap, setShowHeatmap] = useState(true);
   const [showMarkers, setShowMarkers] = useState(true);
   const [showZones, setShowZones] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    disasterService.getAll().then(setDisasters).catch(() => setDisasters([]));
-    evacuationService.getAll().then(setZones).catch(() => setZones([]));
+    Promise.all([
+      disasterService.getAll().then(setDisasters).catch(() => setDisasters([])),
+      evacuationService.getAll().then(setZones).catch(() => setZones([]))
+    ]).finally(() => setLoading(false));
   }, []);
 
   const center = useMemo(() => {
@@ -44,46 +47,58 @@ export default function DisasterMap() {
           Evacuation Zones
         </label>
       </div>
-      <MapContainer center={center} zoom={7} className="leaflet-map">
+      <MapContainer center={center} zoom={7} className="leaflet-map" style={{ height: "100%", width: "100%" }}>
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OpenStreetMap">
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer 
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Dark">
-            <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+            <TileLayer 
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
           </LayersControl.BaseLayer>
         </LayersControl>
 
         {showHeatmap &&
-          disasters.map((disaster) => (
-            <Circle
-              key={`heat-${disaster.id}`}
-              center={[Number(disaster.location_lat), Number(disaster.location_lng)]}
-              radius={12000}
-              pathOptions={{
-                color: severityColor[disaster.severity] || "#4fc3f7",
-                fillOpacity: 0.2,
-                opacity: 0.25
-              }}
-            />
-          ))}
+          disasters.map((disaster) => {
+            if (!disaster.location_lat || !disaster.location_lng) return null;
+            return (
+              <Circle
+                key={`heat-${disaster.id}`}
+                center={[Number(disaster.location_lat), Number(disaster.location_lng)]}
+                radius={12000}
+                pathOptions={{
+                  color: severityColor[disaster.severity] || "#4fc3f7",
+                  fillOpacity: 0.2,
+                  opacity: 0.25
+                }}
+              />
+            );
+          })}
 
         {showMarkers &&
-          disasters.map((disaster) => (
-            <CircleMarker
-              key={disaster.id}
-              center={[Number(disaster.location_lat), Number(disaster.location_lng)]}
-              radius={10}
-              pathOptions={{ color: severityColor[disaster.severity] || "#4fc3f7" }}
-            >
-              <Popup>
-                <strong>{disaster.title}</strong>
-                <div>Type: {disaster.type}</div>
-                <div>Severity: {disaster.severity}</div>
-                <div>Status: {disaster.status}</div>
-              </Popup>
-            </CircleMarker>
-          ))}
+          disasters.map((disaster) => {
+            if (!disaster.location_lat || !disaster.location_lng) return null;
+            return (
+              <CircleMarker
+                key={disaster.id}
+                center={[Number(disaster.location_lat), Number(disaster.location_lng)]}
+                radius={10}
+                pathOptions={{ color: severityColor[disaster.severity] || "#4fc3f7" }}
+              >
+                <Popup>
+                  <strong>{disaster.title}</strong>
+                  <div>Type: {disaster.type}</div>
+                  <div>Severity: {disaster.severity}</div>
+                  <div>Status: {disaster.status}</div>
+                </Popup>
+              </CircleMarker>
+            );
+          })}
 
         {showZones &&
           zones.map((zone) => {
@@ -95,6 +110,15 @@ export default function DisasterMap() {
               </Polygon>
             );
           })}
+
+        {!loading && disasters.length === 0 && zones.length === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center border border-white/20">
+              <p className="text-white/70 text-lg mb-2">📍 Map is ready!</p>
+              <p className="text-white/50 text-sm">Add some disasters in the admin panel to see them here</p>
+            </div>
+          </div>
+        )}
       </MapContainer>
     </div>
   );
