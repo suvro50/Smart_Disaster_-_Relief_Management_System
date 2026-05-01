@@ -1,4 +1,4 @@
-import { Disaster, RescueTeam } from "../models/index.js";
+import { Disaster, RescueTeam, AidRequest } from "../models/index.js";
 import { emitTeamLocationUpdate } from "../services/socketService.js";
 import { sendError, sendSuccess } from "../utils/response.js";
 
@@ -8,6 +8,28 @@ export const getRescueTeams = async (_req, res) => {
     return sendSuccess(res, teams, "Rescue teams fetched successfully.");
   } catch (error) {
     return sendError(res, error.message || "Failed to fetch rescue teams.");
+  }
+};
+
+export const getRescueTeamById = async (req, res) => {
+  try {
+    const team = await RescueTeam.findByPk(req.params.id);
+    if (!team) return sendError(res, "Rescue team not found.", 404);
+    return sendSuccess(res, team, "Rescue team fetched successfully.");
+  } catch (error) {
+    return sendError(res, error.message || "Failed to fetch rescue team.");
+  }
+};
+
+export const getMyMissions = async (req, res) => {
+  try {
+    const missions = await AidRequest.findAll({
+      where: { assigned_team: req.user?.id },
+      order: [["created_at", "DESC"]]
+    });
+    return sendSuccess(res, missions, "My missions fetched successfully.");
+  } catch (error) {
+    return sendError(res, error.message || "Failed to fetch my missions.");
   }
 };
 

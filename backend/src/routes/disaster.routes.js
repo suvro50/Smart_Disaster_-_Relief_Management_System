@@ -30,8 +30,6 @@ router.get(
 
 router.post(
   "/risk-score",
-  protect,
-  allowRoles("super_admin", "relief_manager", "rescue_team"),
   [
     body("type")
       .optional()
@@ -47,12 +45,10 @@ router.post(
 
 router.post(
   "/",
-  protect,
-  allowRoles("super_admin", "relief_manager"),
   [
     body("title").isLength({ min: 3, max: 200 }),
     body("type").isIn(["flood", "earthquake", "cyclone", "fire", "landslide", "drought", "tsunami", "other"]),
-    body("severity").isIn(["low", "medium", "high", "critical"]),
+    body("severity").optional().isIn(["low", "medium", "high", "critical"]),
     body("location_lat").isFloat(),
     body("location_lng").isFloat()
   ],

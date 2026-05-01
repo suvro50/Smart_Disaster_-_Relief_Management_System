@@ -12,7 +12,9 @@ import { validateRequest } from "../middleware/validate.middleware.js";
 
 const router = Router();
 
-router.get("/", protect, getAidRequests);
+router.get("/", getAidRequests);
+
+router.get("/:id", [param("id").isInt({ min: 1 })], validateRequest, getAidRequests);
 
 router.post(
   "/",

@@ -21,9 +21,14 @@ export default function StatsCard({ title, value }) {
   }, [value]);
 
   return (
-    <motion.div className="card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-      <p>{title}</p>
-      <h3>{animatedValue}</h3>
+    <motion.div
+      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:border-red-500/30 transition-colors"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <p className="text-white/50 text-sm">{title}</p>
+      <h3 className="text-3xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mt-1">{animatedValue}</h3>
     </motion.div>
   );
 }

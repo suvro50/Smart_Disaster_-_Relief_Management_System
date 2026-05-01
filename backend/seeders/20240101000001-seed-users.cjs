@@ -1,0 +1,111 @@
+"use strict";
+const bcrypt = require("bcryptjs");
+
+module.exports = {
+  async up(queryInterface) {
+    const hash = (pw) => bcrypt.hashSync(pw, 10);
+    const now = new Date();
+
+    await queryInterface.bulkInsert("users", [
+      {
+        full_name: "System Admin",
+        email: "admin@disaster.com",
+        password_hash: hash("Admin@123"),
+        role: "super_admin",
+        phone: "+8801700000001",
+        district: "Dhaka",
+        location_lat: 23.8103,
+        location_lng: 90.4125,
+        is_active: true,
+        last_login: now,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "Rahim Uddin",
+        email: "rahim@relief.gov",
+        password_hash: hash("Manager@123"),
+        role: "relief_manager",
+        phone: "+8801700000002",
+        district: "Sylhet",
+        location_lat: 24.8949,
+        location_lng: 91.8687,
+        is_active: true,
+        last_login: now,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "Fire Rescue Team Lead",
+        email: "fire@rescue.gov",
+        password_hash: hash("Rescue@123"),
+        role: "rescue_team",
+        phone: "+8801700000003",
+        district: "Chittagong",
+        location_lat: 22.3569,
+        location_lng: 91.7832,
+        is_active: true,
+        last_login: now,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "Karim Hossain",
+        email: "karim@volunteer.org",
+        password_hash: hash("Volunteer@123"),
+        role: "volunteer",
+        phone: "+8801700000004",
+        district: "Rajshahi",
+        location_lat: 24.3745,
+        location_lng: 88.6042,
+        is_active: true,
+        last_login: now,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "Fatima Begum",
+        email: "fatima@public.com",
+        password_hash: hash("Public@123"),
+        role: "public",
+        phone: "+8801700000005",
+        district: "Khulna",
+        location_lat: 22.8456,
+        location_lng: 89.5403,
+        is_active: true,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "NDRF Team Alpha",
+        email: "ndrf.alpha@rescue.gov",
+        password_hash: hash("Rescue@123"),
+        role: "rescue_team",
+        phone: "+8801700000006",
+        district: "Barishal",
+        location_lat: 22.701,
+        location_lng: 90.3535,
+        is_active: true,
+        created_at: now,
+        updated_at: now,
+      },
+      {
+        full_name: "Sadia Akter",
+        email: "sadia@relief.gov",
+        password_hash: hash("Manager@123"),
+        role: "relief_manager",
+        phone: "+8801700000007",
+        district: "Rangpur",
+        location_lat: 25.7439,
+        location_lng: 89.2752,
+        is_active: true,
+        created_at: now,
+        updated_at: now,
+      },
+    ]);
+  },
+
+  async down(queryInterface) {
+    await queryInterface.bulkDelete("users", null, {});
+  },
+};

@@ -24,6 +24,9 @@ const User = sequelize.define(
     district: { type: DataTypes.STRING(100), allowNull: true },
     profile_image: { type: DataTypes.STRING(255), allowNull: true },
     is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
+    is_verified: { type: DataTypes.BOOLEAN, defaultValue: false },
+    verification_code: { type: DataTypes.STRING(6), allowNull: true },
+    verification_code_expires_at: { type: DataTypes.DATE, allowNull: true },
     last_login: { type: DataTypes.DATE, allowNull: true }
   },
   {

@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import ActiveAlertBanner from "../../components/dashboard/ActiveAlertBanner";
 import LiveFeedTicker from "../../components/dashboard/LiveFeedTicker";
 import ResourceGauge from "../../components/dashboard/ResourceGauge";
+import ResourceBarChart from "../../components/dashboard/ResourceBarChart";
+import SeverityDonut from "../../components/dashboard/SeverityDonut";
 import StatsCard from "../../components/dashboard/StatsCard";
 import WeatherWidget from "../../components/dashboard/WeatherWidget";
 import DisasterMap from "../../components/map/DisasterMap";
@@ -23,6 +26,7 @@ export default function Dashboard() {
   const [resourcePercent, setResourcePercent] = useState(0);
   const [resourceAnalytics, setResourceAnalytics] = useState(null);
   const [riskSpotlight, setRiskSpotlight] = useState(null);
+  const [resources, setResources] = useState([]);
 
   useEffect(() => {
     disasterService.getAll().then((items) => dispatch(setDisasters(items)));
@@ -40,6 +44,7 @@ export default function Dashboard() {
         setResourcePercent(100 - Number(analytics.lowStockRate || 0));
       })
       .catch(() => setResourcePercent(0));
+    resourceService.getAll().then(setResources).catch(() => setResources([]));
   }, [dispatch]);
 
   useEffect(() => {
@@ -102,36 +107,62 @@ export default function Dashboard() {
 
   return (
     <main className="page">
-      <h2>Admin Dashboard</h2>
+      <motion.h2
+        className="text-2xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mb-4"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        Admin Dashboard
+      </motion.h2>
+
       <ActiveAlertBanner
         isCritical={alerts.some((item) => item.severity === "critical")}
         message={alerts[0]?.title ? `Latest alert: ${alerts[0].title}` : "System ready for real-time alerts"}
       />
-      <div className="grid">
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
         <StatsCard title="Total Disasters" value={disasters.length} />
         <StatsCard title="Active Disasters" value={stats?.activeDisasters ?? activeDisasters} />
         <StatsCard title="Active Alerts" value={alerts.length || stats?.criticalAlerts || 0} />
       </div>
-      <div className="grid">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <WeatherWidget />
         <ResourceGauge value={resourcePercent} />
       </div>
-      <div className="grid">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <SeverityDonut disasters={disasters} />
+        <ResourceBarChart resources={resources} />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
         <StatsCard title="Low Stock Rate (%)" value={resourceAnalytics?.lowStockRate ?? 0} />
         <StatsCard title="Total Resource Qty" value={resourceAnalytics?.totalQuantity ?? 0} />
         <StatsCard title="AI Risk Score" value={riskSpotlight?.score ?? 0} />
       </div>
+
       {riskSpotlight ? (
-        <div className="card">
-          <h4>AI Risk Spotlight</h4>
-          <p>{riskSpotlight.title}</p>
-          <p>
+        <motion.div
+          className="bg-white/5 backdrop-blur-md border border-red-500/20 rounded-xl p-5 mt-4"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          <h4 className="text-white font-semibold mb-2">AI Risk Spotlight</h4>
+          <p className="text-white/60 text-sm">{riskSpotlight.title}</p>
+          <p className="text-red-400 text-sm mt-1">
             Severity: {riskSpotlight.severity.toUpperCase()} (Score {riskSpotlight.score})
           </p>
-        </div>
+        </motion.div>
       ) : null}
-      <DisasterMap />
-      <LiveFeedTicker items={feedItems} />
+
+      <div className="mt-4">
+        <DisasterMap />
+      </div>
+
+      <div className="mt-4">
+        <LiveFeedTicker items={feedItems} />
+      </div>
     </main>
   );
 }

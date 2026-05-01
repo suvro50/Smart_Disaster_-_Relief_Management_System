@@ -2,8 +2,13 @@ import { AidRequest } from "../models/index.js";
 import { emitAidRequestUpdate } from "../services/socketService.js";
 import { sendError, sendSuccess } from "../utils/response.js";
 
-export const getAidRequests = async (_req, res) => {
+export const getAidRequests = async (req, res) => {
   try {
+    if (req.params.id) {
+      const aidRequest = await AidRequest.findByPk(req.params.id);
+      if (!aidRequest) return sendError(res, "Aid request not found.", 404);
+      return sendSuccess(res, aidRequest, "Aid request fetched successfully.");
+    }
     const aidRequests = await AidRequest.findAll({ order: [["created_at", "DESC"]] });
     return sendSuccess(res, aidRequests, "Aid requests fetched successfully.");
   } catch (error) {

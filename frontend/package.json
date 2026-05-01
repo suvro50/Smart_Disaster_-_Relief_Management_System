@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node ./node_modules/vite/bin/vite.js",
     "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "node ./node_modules/vite/bin/vite.js preview"
+    "preview": "node ./node_modules/vite/bin/vite.js preview",
+    "ngrok": "node -e \"import('ngrok').then(async ngrok => { const url = await ngrok.connect({ addr: 5173 }); console.log('\\n🌍 YOUR PUBLIC SECURE URL:'); console.log('✅ ' + url + '\\n'); console.log('Share this URL with anyone, anywhere in the world!\\n'); })\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
@@ -23,7 +24,12 @@
     "socket.io-client": "^4.8.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
     "@vitejs/plugin-react": "^4.3.2",
+    "autoprefixer": "^10.5.0",
+    "ngrok": "^5.0.0-beta.2",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^4.2.4",
     "vite": "^5.4.3"
   }
 }

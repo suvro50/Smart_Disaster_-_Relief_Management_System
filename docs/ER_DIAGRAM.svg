@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="Segoe UI, sans-serif">
+  <style>
+    .table { fill: #1a1a2e; stroke: rgba(255,255,255,0.15); stroke-width: 1.5; rx: 8; }
+    .title { fill: #ef4444; font-weight: 700; font-size: 13px; }
+    .field { fill: rgba(255,255,255,0.6); font-size: 10px; }
+    .pk { fill: #fbbf24; }
+    .fk { fill: #60a5fa; }
+    .rel { stroke: rgba(255,255,255,0.2); stroke-width: 1; fill: none; }
+    .rel-label { fill: rgba(255,255,255,0.3); font-size: 9px; }
+  </style>
+  <rect width="900" height="700" fill="#0a0a0f" rx="12"/>
+  <text x="450" y="30" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="16" font-weight="700">Smart Disaster &amp; Relief — ER Diagram</text>
+
+  <!-- Users -->
+  <rect class="table" x="20" y="60" width="160" height="180"/>
+  <text class="title" x="100" y="82" text-anchor="middle">users</text>
+  <text class="field pk" x="30" y="100">id PK</text>
+  <text class="field" x="30" y="115">full_name</text>
+  <text class="field" x="30" y="130">email</text>
+  <text class="field" x="30" y="145">password_hash</text>
+  <text class="field" x="30" y="160">role</text>
+  <text class="field" x="30" y="175">phone, district</text>
+  <text class="field" x="30" y="190">is_active</text>
+  <text class="field" x="30" y="205">location_lat, lng</text>
+  <text class="field" x="30" y="220">profile_image</text>
+
+  <!-- Disasters -->
+  <rect class="table" x="250" y="60" width="180" height="200"/>
+  <text class="title" x="340" y="82" text-anchor="middle">disasters</text>
+  <text class="field pk" x="260" y="100">id PK</text>
+  <text class="field" x="260" y="115">title</text>
+  <text class="field" x="260" y="130">type, severity, status</text>
+  <text class="field" x="260" y="145">description</text>
+  <text class="field fk" x="260" y="160">reported_by FK→users</text>
+  <text class="field fk" x="260" y="175">verified_by FK→users</text>
+  <text class="field" x="260" y="190">district</text>
+  <text class="field" x="260" y="205">affected_population</text>
+  <text class="field" x="260" y="220">casualties, injuries</text>
+  <text class="field" x="260" y="235">location_lat, lng</text>
+
+  <!-- Aid Requests -->
+  <rect class="table" x="500" y="60" width="180" height="180"/>
+  <text class="title" x="590" y="82" text-anchor="middle">aid_requests</text>
+  <text class="field pk" x="510" y="100">id PK</text>
+  <text class="field fk" x="510" y="115">disaster_id FK</text>
+  <text class="field fk" x="510" y="130">requested_by FK</text>
+  <text class="field" x="510" y="145">request_type, urgency</text>
+  <text class="field" x="510" y="160">status</text>
+  <text class="field" x="510" y="175">people_count</text>
+  <text class="field" x="510" y="190">address, description</text>
+  <text class="field" x="510" y="205">location_lat, lng</text>
+  <text class="field" x="510" y="220">assigned_team</text>
+
+  <!-- Alerts -->
+  <rect class="table" x="720" y="60" width="160" height="160"/>
+  <text class="title" x="800" y="82" text-anchor="middle">alerts</text>
+  <text class="field pk" x="730" y="100">id PK</text>
+  <text class="field fk" x="730" y="115">disaster_id FK</text>
+  <text class="field fk" x="730" y="130">issued_by FK→users</text>
+  <text class="field" x="730" y="145">title, message</text>
+  <text class="field" x="730" y="160">severity, alert_type</text>
+  <text class="field" x="730" y="175">district, is_active</text>
+  <text class="field" x="730" y="190">expires_at</text>
+
+  <!-- Rescue Teams -->
+  <rect class="table" x="20" y="320" width="180" height="170"/>
+  <text class="title" x="110" y="342" text-anchor="middle">rescue_teams</text>
+  <text class="field pk" x="30" y="360">id PK</text>
+  <text class="field fk" x="30" y="375">leader_id FK→users</text>
+  <text class="field" x="30" y="390">name, team_type</text>
+  <text class="field" x="30" y="405">status, capacity</text>
+  <text class="field" x="30" y="420">district</text>
+  <text class="field" x="30" y="435">contact_phone</text>
+  <text class="field" x="30" y="450">location_lat, lng</text>
+
+  <!-- Resources -->
+  <rect class="table" x="250" y="320" width="180" height="170"/>
+  <text class="title" x="340" y="342" text-anchor="middle">resources</text>
+  <text class="field pk" x="260" y="360">id PK</text>
+  <text class="field" x="260" y="375">name, category</text>
+  <text class="field" x="260" y="390">quantity, unit</text>
+  <text class="field" x="260" y="405">status</text>
+  <text class="field" x="260" y="420">location, district</text>
+  <text class="field" x="260" y="435">location_lat, lng</text>
+
+  <!-- Evacuation Zones -->
+  <rect class="table" x="500" y="320" width="180" height="150"/>
+  <text class="title" x="590" y="342" text-anchor="middle">evacuation_zones</text>
+  <text class="field pk" x="510" y="360">id PK</text>
+  <text class="field" x="510" y="375">zone_name, zone_type</text>
+  <text class="field" x="510" y="390">district</text>
+  <text class="field" x="510" y="405">boundary_coordinates</text>
+  <text class="field" x="510" y="420">population_affected</text>
+  <text class="field" x="510" y="435">shelter_capacity</text>
+
+  <!-- Volunteers -->
+  <rect class="table" x="720" y="320" width="160" height="150"/>
+  <text class="title" x="800" y="342" text-anchor="middle">volunteers</text>
+  <text class="field pk" x="730" y="360">id PK</text>
+  <text class="field fk" x="730" y="375">user_id FK→users</text>
+  <text class="field" x="730" y="390">full_name, phone</text>
+  <text class="field" x="730" y="405">skills, availability</text>
+  <text class="field" x="730" y="420">district, status</text>
+
+  <!-- Reports -->
+  <rect class="table" x="20" y="560" width="180" height="120"/>
+  <text class="title" x="110" y="582" text-anchor="middle">reports</text>
+  <text class="field pk" x="30" y="600">id PK</text>
+  <text class="field" x="30" y="615">title, report_type</text>
+  <text class="field fk" x="30" y="630">disaster_id FK</text>
+  <text class="field" x="30" y="645">content, file_url</text>
+
+  <!-- Resource Allocations -->
+  <rect class="table" x="250" y="560" width="180" height="120"/>
+  <text class="title" x="340" y="582" text-anchor="middle">resource_allocations</text>
+  <text class="field pk" x="260" y="600">id PK</text>
+  <text class="field fk" x="260" y="615">resource_id FK</text>
+  <text class="field fk" x="260" y="630">disaster_id FK</text>
+  <text class="field" x="260" y="645">quantity_allocated</text>
+
+  <!-- Relationships -->
+  <line class="rel" x1="180" y1="150" x2="250" y2="150"/>
+  <text class="rel-label" x="215" y="145">1:N</text>
+
+  <line class="rel" x1="430" y1="150" x2="500" y2="150"/>
+  <text class="rel-label" x="465" y="145">1:N</text>
+
+  <line class="rel" x1="430" y1="120" x2="720" y2="120"/>
+  <text class="rel-label" x="575" y="115">1:N</text>
+
+  <line class="rel" x1="100" y1="240" x2="110" y2="320"/>
+  <text class="rel-label" x="85" y="280">1:1</text>
+
+  <line class="rel" x1="430" y1="260" x2="500" y2="320"/>
+  <text class="rel-label" x="465" y="290">1:N</text>
+
+  <line class="rel" x1="340" y1="490" x2="340" y2="560"/>
+  <text class="rel-label" x="345" y="525">1:N</text>
+</svg>

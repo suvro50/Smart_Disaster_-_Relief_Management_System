@@ -22,6 +22,7 @@ export const env = {
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     dialect: process.env.DB_DIALECT || "mysql",
+    storage: process.env.DB_STORAGE || "./smart_disaster_db.sqlite",
     logging: parseBoolean(process.env.DB_LOGGING, false)
   }
 };

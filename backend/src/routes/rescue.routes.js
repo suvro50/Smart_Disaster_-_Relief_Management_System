@@ -3,6 +3,8 @@ import { param } from "express-validator";
 import {
   assignRescueTeamToDisaster,
   createRescueTeam,
+  getMyMissions,
+  getRescueTeamById,
   getRescueTeamMissionHistory,
   getRescueTeams,
   updateRescueTeam
@@ -14,6 +16,8 @@ import { validateRequest } from "../middleware/validate.middleware.js";
 const router = Router();
 
 router.get("/", protect, getRescueTeams);
+router.get("/my-missions", protect, allowRoles("rescue_team"), getMyMissions);
+router.get("/:id", protect, [param("id").isInt({ min: 1 })], validateRequest, getRescueTeamById);
 router.post("/", protect, allowRoles("super_admin", "relief_manager"), createRescueTeam);
 router.put("/:id", protect, allowRoles("super_admin", "relief_manager"), updateRescueTeam);
 router.post(

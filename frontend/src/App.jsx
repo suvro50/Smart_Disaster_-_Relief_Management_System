@@ -8,6 +8,7 @@ import { useAuth } from "./hooks/useAuth.js";
 const Landing = lazy(() => import("./pages/public/Landing.jsx"));
 const Login = lazy(() => import("./pages/public/Login.jsx"));
 const Register = lazy(() => import("./pages/public/Register"));
+const VerifyEmail = lazy(() => import("./pages/public/VerifyEmail.jsx"));
 const PublicMap = lazy(() => import("./pages/public/PublicMap"));
 const ReportDisaster = lazy(() => import("./pages/public/ReportDisaster"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard.jsx"));
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/public-map" element={<PublicMap />} />
           <Route path="/report-disaster" element={<ReportDisaster />} />
           <Route

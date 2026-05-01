@@ -5,6 +5,14 @@ export const resourceService = {
     const response = await api.get("/resources");
     return response.data.data;
   },
+  create: async (payload) => {
+    const response = await api.post("/resources", payload);
+    return response.data.data;
+  },
+  update: async (id, payload) => {
+    const response = await api.put(`/resources/${id}`, payload);
+    return response.data.data;
+  },
   getLowStock: async () => {
     const response = await api.get("/resources/low-stock");
     return response.data.data;

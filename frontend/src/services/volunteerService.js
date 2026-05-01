@@ -5,6 +5,10 @@ export const volunteerService = {
     const response = await api.get("/volunteers");
     return response.data.data;
   },
+  register: async (payload) => {
+    const response = await api.post("/volunteers", payload);
+    return response.data.data;
+  },
   approve: async (id) => {
     const response = await api.put(`/volunteers/${id}/approve`);
     return response.data.data;

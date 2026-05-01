@@ -4,7 +4,7 @@ import { sendError, sendSuccess } from "../utils/response.js";
 
 export const createAlert = async (req, res) => {
   try {
-    const payload = { ...req.body, sent_by: req.user?.id || null };
+    const payload = { ...req.body, sent_by: req.user?.id ?? null };
     const alert = await Alert.create(payload);
     emitNewAlert(alert);
 
